@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Daily Routine</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll("main section");
+            sections.forEach(section => {
+                section.style.display = "none";
+            });
+            document.getElementById(sectionId).style.display = "block";
+        }
+
+        function showTime() {
+            let timeElement = document.getElementById("current-time");
+            setInterval(() => {
+                let now = new Date();
+                timeElement.innerText = now.toLocaleTimeString();
+            }, 1000);
+        }
+
+        function changeTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+        function showQuote() {
+            const quotes = [
+                "The secret of getting ahead is getting started.",
+                "Do something today that your future self will thank you for.",
+                "Success is the sum of small efforts, repeated day in and day out.",
+                "A journey of a thousand miles begins with a single step.",
+                "Your only limit is your mind."
+            ];
+            let randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            alert(randomQuote);
+        } 
+
+window.onload = function() {
+    showTime();
+    setInterval(showQuote, 10000); // Show a quote every 10 seconds
+};
+
+        window.onload = showTime;
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let username = localStorage.getItem("username") || "Anonymous";
+            document.getElementById("postButton").addEventListener("click", function () {
+                let postContent = document.getElementById("postInput").value;
+                if (postContent.trim() !== "") {
+                    let postContainer = document.createElement("div");
+                    postContainer.classList.add("post");
+                    postContainer.innerHTML = `<strong>${username}:</strong> <p>${postContent}</p>`;
+                    document.getElementById("posts").prepend(postContainer);
+                    document.getElementById("postInput").value = "";
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>My Daily Routine</h1>
+        <p>Current Time: <span id="current-time"></span></p>
+        <button class="toggle-button" onclick="changeTheme()">Toggle Dark Mode</button>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showSection('morning')">Morning</a></li>
+                <li><a href="#" onclick="showSection('afternoon')">Afternoon</a></li>
+                <li><a href="#" onclick="showSection('evening')">Evening</a></li>
+                <li><a href="#" onclick="showSection('night')">Night</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <aside class="dock-left">
+            <h3>Daily Tips</h3>
+            <ul>
+                <li>Stay hydrated throughout the day.</li>
+                <li>Take short breaks while working.</li>
+                <li>Stretch your body every few hours.</li>
+                <li>Practice deep breathing to stay calm.</li>
+            </ul>
+        </aside>
+
+        <main>
+            <section id="morning" style="display:none;">
+                <h2>Morning Routine</h2>
+                
+                <ul>
+                    <li>Wake up early and stretch to get your body moving.</li>
+                    <li>Drink a glass of water to rehydrate after sleep.</li>
+                    <li>Go for a morning walk or exercise to boost energy levels.</li>
+                    <li>Eat a nutritious breakfast rich in protein and fiber.</li>
+                    <li>Take a refreshing shower and dress comfortably.</li>
+                    <li>Plan and prioritize your daily tasks for better productivity.</li>
+                    <li>Practice meditation or gratitude journaling for a positive mindset.</li>
+                </ul>
+            </section>
+            <section id="afternoon" style="display:none;">
+                <h2>Afternoon Activities</h2>
+                
+                <ul>
+                    <li>Complete high-priority work tasks while staying focused.</li>
+                    <li>Take a short break to refresh your mind and body.</li>
+                    <li>Eat a well-balanced lunch with proteins and greens.</li>
+                    <li>Engage in light physical activity like stretching or walking.</li>
+                    <li>Review progress on tasks and adjust plans if needed.</li>
+                    <li>Stay hydrated by drinking water or herbal tea.</li>
+                    <li>Spend time on creative or skill-building activities.</li>
+                </ul>
+            </section>
+
+            <section id="evening" style="display:none;">
+                <h2>Evening Routine</h2>
+                
+                <ul>
+                    <li>Unwind with a hobby like reading, painting, or playing an instrument.</li>
+                    <li>Take a relaxing walk outdoors to clear your mind.</li>
+                    <li>Spend quality time with family and friends.</li>
+                    <li>Prepare and eat a healthy, light dinner.</li>
+                    <li>Reflect on the day's achievements and set goals for tomorrow.</li>
+                    <li>Limit screen time before bedtime to improve sleep quality.</li>
+                    <li>Practice self-care such as skincare or a warm bath.</li>
+                </ul>
+            </section>
+
+            <section id="night" style="display:none;">
+                <h2>Night Routine</h2>
+               
+                <ul>
+                    <li>Reduce screen time to prevent blue light exposure before sleep.</li>
+                    <li>Practice mindfulness or meditation for relaxation.</li>
+                    <li>Prepare for the next day by organizing your essentials.</li>
+                    <li>Read a book or listen to calming music.</li>
+                    <li>Write in a gratitude journal to end the day on a positive note.</li>
+                    <li>Set an alarm and ensure your sleeping environment is comfortable.</li>
+                    <li>Get a restful sleep of at least 7-8 hours to recharge your body.</li>
+                </ul>
+            </section>
+        </main>
+
+        <aside class="dock-right">
+            <h3>Latest News</h3>
+            <ul>
+                <li>New health studies show benefits of morning exercise.</li>
+                <li>Tech advancements in productivity apps.</li>
+                <li>Best books to read before bedtime.</li>
+                <li>Simple habits to improve mental well-being.</li>
+            </ul>
+        </aside>
+    </div>
+
+    <div class="extra-sections">
+        <section>
+            <h2>Healthy Eating Tips</h2>
+            <p>Eating a balanced diet is crucial for maintaining energy and overall well-being. Incorporate fresh fruits, <br>
+                vegetables, lean proteins, and whole grains into your meals. Avoid processed foods and excessive sugar intake.</p>
+            <ul>
+                <li>Eat smaller, frequent meals to maintain energy levels.</li>
+                <li>Include fiber-rich foods to aid digestion and gut health.</li>
+                <li>Consume healthy fats like nuts, seeds, and avocados.</li>
+                <li>Limit caffeine and alcohol intake for better hydration.</li>
+                <li>Prepare homemade meals to control ingredients and nutrition.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Exercise and Fitness</h2>
+            <p>Regular exercise helps improve physical and mental health. Aim for at least 30 minutes of activity daily, <br>
+                including cardio, strength training, and flexibility exercises.</p>
+            <ul>
+                <li>Incorporate a mix of aerobic, strength, and flexibility exercises.</li>
+                <li>Set fitness goals to stay motivated and track progress.</li>
+                <li>Stretch before and after workouts to prevent injuries.</li>
+                <li>Try outdoor activities like hiking or cycling for variety.</li>
+                <li>Listen to your body and rest when needed.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Mindfulness and Relaxation</h2>
+            <p>Taking time to relax and be mindful can reduce stress and improve focus. Try yoga, meditation,<br>
+                 or deep breathing exercises to stay centered throughout the day.</p>
+            <ul>
+                <li>Practice deep breathing exercises to reduce stress.</li>
+                <li>Engage in activities like journaling or creative arts for relaxation.</li>
+                <li>Take short breaks from screens to prevent mental fatigue.</li>
+                <li>Maintain a gratitude journal to foster a positive mindset.</li>
+                <li>Ensure proper sleep hygiene for a well-rested body and mind.</li>
+            </ul>
+        </section>
+    </div>
+    <section class="community-forum" style="width: 80%; margin: auto; padding: 20px; background: #f4f4f4; border-radius: 10px;">
+        <div class="forum-container">
+            <h2>Community Forum</h2>
+            <textarea id="postInput" placeholder="Write something..."style="width: 100%; height: 150px;"></textarea>
+            <button id="postButton">Post</button>
+            <div id="posts"></div>
+        </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2>Contact Us</h2>
+        <p>Email: contact@dailyroutine.com</p>
+        <p>Phone: +123 456 7890</p>
+        <p>&copy; 2025 My Daily Routine. All rights reserved.</p>
+    </footer>
+</body>
+</html>
