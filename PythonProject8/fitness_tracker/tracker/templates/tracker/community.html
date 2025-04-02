@@ -1,0 +1,156 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community & Challenges</title>
+    <link rel="stylesheet" href="{% static 'tracker/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F5F5F5; /* Light Grey */
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background: #A8E6CF; /* Pastel Green */
+            color: #333;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        h1, h2 {
+            color: #6CBF99; /* Slightly darker pastel green */
+        }
+        #challenge-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .challenge {
+            background: #E0E0E0; /* Soft Grey */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(168, 230, 207, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .challenge:hover {
+            transform: scale(1.05);
+        }
+        button {
+            background: #A8E6CF; /* Pastel Green */
+            color: #333;
+            font-weight: bold;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #8DD9B9;
+        }
+        #community, #testimonials {
+            background: #E0E0E0;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: auto;
+            box-shadow: 0 4px 10px rgba(168, 230, 207, 0.3);
+        }
+        blockquote {
+            font-style: italic;
+            color: #6CBF99;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        🏆 Community Fitness Challenges
+        <p>Engage with a like-minded fitness community, participate in challenges, and push yourself beyond limits!</p>
+    </header>
+
+    <section id="why-join">
+        <h2>🔥 Why Join a Fitness Challenge?</h2>
+        <p>Fitness challenges help build consistency, accountability, and motivation. Whether you're a beginner or a fitness enthusiast, joining a community-driven challenge can help you:</p>
+        <ul style="list-style: none; padding: 0;">
+            <li>✅ Stay motivated with structured fitness goals.</li>
+            <li>✅ Track progress and see measurable improvements.</li>
+            <li>✅ Engage with others, share achievements, and get inspired.</li>
+            <li>✅ Build a habit of regular exercise in a fun way.</li>
+        </ul>
+    </section>
+
+    <div id="challenge-container">
+
+        <div class="challenge">
+            <h2>💪 30-Day Push-Up Challenge</h2>
+            <p>Gradually increase your upper body strength over 30 days.</p>
+            <h3>How It Works:</h3>
+            <ul>
+                <li>📅 Day 1: Start with <strong>10 push-ups</strong>.</li>
+                <li>📈 Add <strong>2 more push-ups</strong> daily.</li>
+                <li>🏆 By day 30, achieve <strong>60 push-ups</strong>!</li>
+            </ul>
+            <button>Join Challenge</button>
+        </div>
+
+        <div class="challenge">
+            <h2>🚶‍♂️ 10,000 Steps Daily Challenge</h2>
+            <p>Improve cardiovascular health and burn calories with 10,000 steps daily.</p>
+            <button>Join Challenge</button>
+        </div>
+
+        <div class="challenge">
+            <h2>🧘 30-Day Plank Challenge</h2>
+            <p>Strengthen your core and posture by holding a plank longer each day.</p>
+            <button>Join Challenge</button>
+        </div>
+
+        <div class="challenge">
+            <h2>🏋️ 100 Squats Challenge</h2>
+            <p>Build strong legs and endurance with this high-rep squat challenge.</p>
+            <button>Join Challenge</button>
+        </div>
+
+        <div class="challenge">
+            <h2>💧 30-Day Hydration Challenge</h2>
+            <p>Improve overall health by drinking more water daily.</p>
+            <button>Join Challenge</button>
+        </div>
+
+    </div>
+
+    <section id="community">
+        <h2>🌍 Join the Community</h2>
+        <p>Connect with fellow fitness enthusiasts, share progress, and motivate each other:</p>
+        <ul style="list-style: none; padding: 0;">
+            <li>👥 <strong>Join our Facebook Group:</strong> Share progress and tips.</li>
+            <li>📸 <strong>Use #FitnessChallenge2025 on Instagram:</strong> Post daily updates.</li>
+            <li>📊 <strong>Track your progress:</strong> Keep a journal or use our online tracker.</li>
+        </ul>
+    </section>
+
+    <section id="testimonials">
+        <h2>💬 What Participants Say</h2>
+        <blockquote>
+            <p>"The 10,000 steps challenge completely transformed my routine! I feel more active than ever." - <strong>Jessica, 32</strong></p>
+        </blockquote>
+        <blockquote>
+            <p>"After completing the plank challenge, my core strength has improved significantly!" - <strong>Daniel, 27</strong></p>
+        </blockquote>
+    </section>
+
+    <script src="{% static 'tracker/scripts.js' %}"></script>
+</body>
+</html>

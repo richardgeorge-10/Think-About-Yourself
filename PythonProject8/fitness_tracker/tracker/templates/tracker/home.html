@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #ffffff, #d6e6ff);
+            color: #333;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #A8E6CF; /* Light pastel green */
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0px 4px 10px rgba(168, 230, 207, 0.5);
+        }
+
+        .nav-btn:hover {
+            background: #85d6b9; /* Slightly darker pastel green */
+            box-shadow: 0px 6px 15px rgba(133, 214, 185, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* Fullscreen Hero Section */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+            color: #555;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 50px auto;
+            max-width: 800px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .content p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            color: #444;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .button-container {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .button-container p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+            color: #333;
+        }
+
+        .start-btn {
+            background: #A8E6CF;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0px 4px 15px rgba(168, 230, 207, 0.5);
+            width: 100%;
+        }
+
+        .start-btn:hover {
+            background: #85d6b9;
+            box-shadow: 0px 6px 20px rgba(133, 214, 185, 0.6);
+            transform: scale(1.05);
+        }
+
+        .contact {
+            margin: 50px auto;
+            padding: 30px;
+            text-align: center;
+            max-width: 800px;
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .contact h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .contact p {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .contact a {
+            color: #2575fc;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar (Only Login & Logout) -->
+    <div class="navbar">
+        {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="nav-btn">Logout</button>
+            </form>
+        {% else %}
+            <button class="nav-btn" onclick="window.location.href='/login/'">Login</button>
+            <button class="nav-btn" onclick="window.location.href='/register/'">Register</button>
+        {% endif %}
+    </div>
+
+    <!-- Hero Section with 3D Spline -->
+    <div class="hero">
+        <iframe src="https://my.spline.design/clockdigitalinteractioncopy-25c354fd906f4fe38679d7a7f2b6d14c/" frameborder="0"></iframe>
+        <div class="scroll-down">↓ Scroll Down</div>
+    </div>
+
+    <!-- Description Section -->
+    <div class="glass content">
+        <h1>Welcome to Your Fitness Tracker</h1>
+        <p>Take control of your health with real-time tracking, guided workouts, and personalized nutrition plans. Start your journey to a healthier life today!</p>
+    </div>
+
+    <!-- Buttons with Descriptions -->
+    <div class="glass buttons">
+        <div class="button-container">
+            <p><strong>Track Your Progress:</strong> Monitor your daily activities, set fitness goals, and analyze your performance.</p>
+            <button class="start-btn" onclick="window.location.href='/dashboard/'">Start Tracking</button>
+        </div>
+
+        <div class="button-container">
+            <p><strong>Workouts To Try:</strong> Discover workout routines tailored to your goals, whether it's strength, endurance, or flexibility.</p>
+            <button class="start-btn" onclick="window.location.href='/workouts/'">View Workouts</button>
+        </div>
+
+        <div class="button-container">
+            <p><strong>Nutrition Plans:</strong> Get diet recommendations that align with your fitness goals for better results.</p>
+            <button class="start-btn" onclick="window.location.href='/nutrition/'">Explore Nutrition</button>
+        </div>
+
+        <div class="button-container">
+            <p><strong>Join Our Community:</strong> Connect with fitness enthusiasts, share experiences, and stay motivated.</p>
+            <button class="start-btn" onclick="window.location.href='/community/'">Join Community</button>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="glass contact">
+        <h2>Contact Us</h2>
+        <p>Have any questions? Reach out to us anytime!</p>
+        <p>Email: <a href="mailto:support@fitnesstracker.com">support@fitnesstracker.com</a></p>
+    </div>
+
+</body>
+</html>

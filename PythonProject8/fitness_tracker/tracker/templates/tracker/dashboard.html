@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Fitness Tracker</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f2f2f2; /* Light Grey */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 40px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        #container {
+            width: 80%;
+            height: 400px;
+            margin: 0 auto;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        /* Toggle Buttons */
+        .toggle-container {
+            margin: 20px 0;
+        }
+
+        .toggle-container button {
+            background: #A8E6CF; /* Light Pastel Green */
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(168, 230, 207, 0.5);
+        }
+
+        .toggle-container button.active {
+            background: #85d6b9; /* Darker Pastel Green */
+        }
+
+        .toggle-container button:hover {
+            background: #72c1a6;
+            transform: scale(1.05);
+        }
+
+        /* Input Fields */
+        .input-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        input {
+            padding: 12px;
+            font-size: 16px;
+            width: 120px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #A8E6CF;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            background: #A8E6CF;
+            color: #333;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(168, 230, 207, 0.5);
+        }
+
+        button:hover {
+            background: #85d6b9;
+            transform: scale(1.05);
+        }
+
+        /* Chart Container */
+        #chart-container {
+            width: 80%;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        canvas {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>📊 Fitness Progress</h1>
+
+    <!-- Toggle Buttons -->
+    <div class="toggle-container">
+        <button id="dailyBtn" class="active" onclick="setView('daily')">Daily</button>
+        <button id="weeklyBtn" onclick="setView('weekly')">Weekly</button>
+        <button id="monthlyBtn" onclick="setView('monthly')">Monthly</button>
+    </div>
+
+    <!-- 3D Graph Container -->
+    <div id="container"></div>
+
+    <!-- Input Fields -->
+    <div class="input-container">
+        <input type="number" id="weightInput" placeholder="Weight (kg)">
+        <input type="number" id="stepsInput" placeholder="Steps">
+        <input type="number" id="caloriesInput" placeholder="Calories">
+        <button onclick="updateGraph()">Update Graph</button>
+    </div>
+
+    <!-- Chart.js Container -->
+    <div id="chart-container">
+        <canvas id="progressChart"></canvas>
+    </div>
+
+    <script>
+        // Scene, Camera, Renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+        renderer.setSize(window.innerWidth * 0.8, 400);
+        document.getElementById("container").appendChild(renderer.domElement);
+
+        let data = {
+            daily: { weight: 70, steps: 5000, calories: 200 },
+            weekly: { weight: 69, steps: 35000, calories: 1400 },
+            monthly: { weight: 68, steps: 150000, calories: 6000 }
+        };
+
+        let currentView = "daily";
+        let bars = [];
+
+        function createGraph() {
+            bars.forEach(bar => scene.remove(bar));
+            bars = [];
+
+            const colors = [0x80cbc4, 0xa5d6a7, 0xffcc80];
+            const values = [
+                data[currentView].weight / 10,
+                data[currentView].steps / (currentView === 'daily' ? 1000 : 7000),
+                data[currentView].calories / (currentView === 'daily' ? 100 : 2000)
+            ];
+
+            for (let i = 0; i < values.length; i++) {
+                const geometry = new THREE.BoxGeometry(1, values[i], 1);
+                const material = new THREE.MeshStandardMaterial({ color: colors[i], metalness: 0.5, roughness: 0.4 });
+                const bar = new THREE.Mesh(geometry, material);
+                bar.position.set(i * 2 - 2, values[i] / 2, 0);
+                scene.add(bar);
+                bars.push(bar);
+            }
+        }
+
+        scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+        const pointLight = new THREE.PointLight(0xffffff, 1);
+        pointLight.position.set(5, 10, 5);
+        scene.add(pointLight);
+        camera.position.set(0, 5, 10);
+
+        function updateGraph() {
+            data[currentView].weight = parseFloat(document.getElementById("weightInput").value) || data[currentView].weight;
+            data[currentView].steps = parseFloat(document.getElementById("stepsInput").value) || data[currentView].steps;
+            data[currentView].calories = parseFloat(document.getElementById("caloriesInput").value) || data[currentView].calories;
+            createGraph();
+            updateChart();
+        }
+
+        createGraph();
+        renderer.render(scene, camera);
+
+        let ctx = document.getElementById("progressChart").getContext("2d");
+        let progressChart = new Chart(ctx, { type: "bar", data: { labels: ["Weight", "Steps", "Calories"], datasets: [{ data: Object.values(data.daily), backgroundColor: ["#80cbc4", "#a5d6a7", "#ffcc80"] }] }, options: { responsive: true, scales: { y: { beginAtZero: true } } } });
+
+        function updateChart() {
+            progressChart.data.datasets[0].data = Object.values(data[currentView]);
+            progressChart.update();
+        }
+    </script>
+</body>
+</html>

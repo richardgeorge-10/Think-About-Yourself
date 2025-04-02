@@ -1,0 +1,174 @@
+{% load static %}  <!-- Load Django static files -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout & Exercise Guide</title>
+    <link rel="stylesheet" href="{% static 'tracker/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #f0f0f0, #dff5e2);
+            color: #333;
+            text-align: center;
+        }
+
+        header {
+            background: #A8E6CF;
+            color: #333;
+            padding: 20px;
+            font-size: 26px;
+            font-weight: bold;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1, h2 {
+            color: #5C946E;
+        }
+
+        /* Search Bar */
+        #search {
+            padding: 12px;
+            width: 80%;
+            max-width: 400px;
+            border: 2px solid #5C946E;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        /* Navigation Buttons */
+        nav {
+            margin: 20px 0;
+        }
+
+        nav button {
+            background: #A8E6CF;
+            color: #333;
+            font-weight: bold;
+            padding: 12px 18px;
+            margin: 5px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        nav button:hover {
+            background: #7DCFB6;
+            transform: scale(1.05);
+        }
+
+        /* Workout Cards */
+        #workout-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .workout {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(92, 148, 110, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+        }
+
+        .workout:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(92, 148, 110, 0.3);
+        }
+
+        .workout img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .workout h2 {
+            margin-top: 10px;
+        }
+
+        .workout p {
+            text-align: justify;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        🏋️‍♂️ Workout & Exercise Guide
+        <input type="text" id="search" placeholder="Search exercises..." onkeyup="filterWorkouts()">
+    </header>
+
+    <nav>
+        <button onclick="filterCategory('all')">All</button>
+        <button onclick="filterCategory('strength')">Strength</button>
+        <button onclick="filterCategory('cardio')">Cardio</button>
+        <button onclick="filterCategory('flexibility')">Flexibility</button>
+    </nav>
+
+    <div id="workout-container">
+        <div class="workout strength">
+            <img src="{% static 'tracker/images/workout1.jpg' %}" alt="Deadlift">
+            <h2>Deadlift</h2>
+            <p>
+                The deadlift is a powerful strength-building exercise that engages multiple muscle groups, including the **lower back, glutes, hamstrings, and core**.
+                It **enhances grip strength**, boosts posture, and **develops total-body power**.
+                To avoid injuries, keep your **spine neutral**, **lift with your legs**, and maintain a **strong grip**.
+                <strong>Pro Tip:</strong> **Using resistance bands** can help improve control and strength over time.
+            </p>
+        </div>
+
+        <div class="workout cardio">
+            <img src="{% static 'tracker/images/workout2.jpg' %}" alt="Jump Rope">
+            <h2>Jump Rope</h2>
+            <p>
+                Jumping rope is an **intense cardiovascular workout** that improves **stamina, foot speed, and endurance**.
+                It **burns calories quickly** and strengthens your **legs, arms, and core**.
+                Beginners should **start at a slow pace**, while advanced users can try **double-unders and side swings**.
+                <strong>Pro Tip:</strong> **Jumping rope for just 10 minutes** can provide the same cardiovascular benefits as a **30-minute jog**.
+            </p>
+        </div>
+
+        <div class="workout flexibility">
+            <img src="{% static 'tracker/images/workout3.jpg' %}" alt="Yoga">
+            <h2>Yoga</h2>
+            <p>
+                Yoga enhances **flexibility, mental focus, and full-body balance**. It **improves mobility, reduces stress, and increases muscle control**.
+                There are multiple styles of yoga:
+                - **Vinyasa**: Flowing sequences for balance and strength.
+                - **Hatha**: Slow, beginner-friendly poses.
+                - **Ashtanga**: Advanced sequences to build endurance.
+                <strong>Pro Tip:</strong> Practicing yoga for just **15 minutes a day** can **lower stress and increase mobility**.
+            </p>
+        </div>
+
+        <div class="workout strength">
+            <img src="{% static 'tracker/images/workout4.jpg' %}" alt="Bench Press">
+            <h2>Bench Press</h2>
+            <p>
+                The bench press is a **classic upper-body workout** that primarily strengthens the **chest, shoulders, and triceps**.
+                It **enhances pushing strength** and **builds muscle mass**.
+                Key form tips:
+                - Keep **feet firmly planted** on the ground.
+                - Lower the bar **with control** and avoid bouncing.
+                - Use a **spotter** when lifting heavy.
+                <strong>Pro Tip:</strong> **Grip width affects muscle activation**—a **wider grip** works more chest, while a **narrow grip** targets triceps.
+            </p>
+        </div>
+    </div>
+
+    <script src="{% static 'tracker/scripts.js' %}"></script>
+</body>
+</html>
